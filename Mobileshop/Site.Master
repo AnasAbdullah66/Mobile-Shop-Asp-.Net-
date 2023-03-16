@@ -1,0 +1,73 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Mobileshop.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title><%: Page.Title %></title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/font-awesome.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-3.6.1.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning text-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/Default.aspx">
+                    <img src="Images/logo.jpg" width="250" height="60" class="d-inline-block align-top" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse col" id="navbarNavAltMarkup">
+                    <div class="navbar-nav col-10">
+                        <a class="nav-link active text-white" href="Default.aspx">Home</a>
+                        <a class="nav-link text-white" href="frmBrands.aspx">Brands</a>
+                        <a class="nav-link text-white" href="frmProduct.aspx">Products</a>
+                        <a class="nav-link text-white" href="frmEmployee.aspx">Employee</a>
+                        <a class="nav-link text-white" href="frmEmployeeList.aspx">Employee List</a>
+                        <a class="nav-link text-white" href="Report.aspx">Report</a>
+                        <a class="nav-link text-white" href="frmContact.aspx">Contact</a>
+                    </div>
+
+                    <div class="navbar-nav col-2">
+                        <%
+                            if (Request.IsAuthenticated)
+                            {
+                        %>
+                        <a class="nav-link text-white " href="#">Hi <%=Page.User.Identity.Name %></a>
+                        <asp:LinkButton ID="logout" runat="server" CssClass="nav-link" OnClick="logout_Click">logout</asp:LinkButton>
+                        <%
+                            }
+                            else
+                            {
+                        %>
+                        <asp:Button ID="btnRegister" CssClass="nav-item shadow p-2 rounded m-1 btn btn-success" OnClick="btnRegister_Click" Text="Register" runat="server" />
+
+                        <asp:Button ID="btnLogin" CausesValidation="false" runat="server" CssClass="nav-item shadow p-2 rounded m-1 btn btn-primary" Text="Login" OnClick="btnLogin_Click" />
+                        <%
+                            }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <asp:ContentPlaceHolder ID="Main" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="bg-success">
+            <p class="text-center">&copy;<%: DateTime.Now.Year %> www.isdb-bisew.org</p>
+        </div>
+    </form>
+    <asp:ContentPlaceHolder ID="Footer" runat="server">
+    </asp:ContentPlaceHolder>
+    <script src="/Scripts/bootstrap.js"></script>
+</body>
+</html>

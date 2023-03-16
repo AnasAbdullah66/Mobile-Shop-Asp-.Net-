@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MobileShopDB_Ev07Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="brand">
+    <Key>
+      <PropertyRef Name="brandId" />
+    </Key>
+    <Property Name="brandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BrandName" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mobileInfo">
+    <Key>
+      <PropertyRef Name="mobile_ID" />
+    </Key>
+    <Property Name="mobile_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="brand_ID" Type="int" Nullable="false" />
+    <Property Name="model_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="mobileTypeId" Type="int" Nullable="false" />
+    <Property Name="mobile_Price" Type="money" Nullable="false" />
+    <Property Name="mobile_Picture" Type="nvarchar" MaxLength="200" />
+    <Property Name="camera" Type="int" />
+    <Property Name="ram" Type="int" />
+    <Property Name="rom" Type="int" />
+  </EntityType>
+  <EntityType Name="mobileType">
+    <Key>
+      <PropertyRef Name="typeId" />
+    </Key>
+    <Property Name="typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typeName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__mobileInf__brand__286302EC">
+    <End Role="brand" Type="Self.brand" Multiplicity="1" />
+    <End Role="mobileInfo" Type="Self.mobileInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="brand">
+        <PropertyRef Name="brandId" />
+      </Principal>
+      <Dependent Role="mobileInfo">
+        <PropertyRef Name="brand_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__mobileInf__mobil__29572725">
+    <End Role="mobileType" Type="Self.mobileType" Multiplicity="1" />
+    <End Role="mobileInfo" Type="Self.mobileInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mobileType">
+        <PropertyRef Name="typeId" />
+      </Principal>
+      <Dependent Role="mobileInfo">
+        <PropertyRef Name="mobileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MobileShopDB_Ev07ModelStoreContainer">
+    <EntitySet Name="brand" EntityType="Self.brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="mobileInfo" EntityType="Self.mobileInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="mobileType" EntityType="Self.mobileType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__mobileInf__brand__286302EC" Association="Self.FK__mobileInf__brand__286302EC">
+      <End Role="brand" EntitySet="brand" />
+      <End Role="mobileInfo" EntitySet="mobileInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__mobileInf__mobil__29572725" Association="Self.FK__mobileInf__mobil__29572725">
+      <End Role="mobileType" EntitySet="mobileType" />
+      <End Role="mobileInfo" EntitySet="mobileInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

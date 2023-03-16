@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MobileShopDB_Ev07Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="brand">
+    <Key>
+      <PropertyRef Name="brandId" />
+    </Key>
+    <Property Name="brandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="mobileInfoes" Relationship="Self.FK__mobileInf__brand__286302EC" FromRole="brand" ToRole="mobileInfo" />
+  </EntityType>
+  <EntityType Name="mobileInfo">
+    <Key>
+      <PropertyRef Name="mobile_ID" />
+    </Key>
+    <Property Name="mobile_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="brand_ID" Type="Int32" Nullable="false" />
+    <Property Name="model_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="mobileTypeId" Type="Int32" Nullable="false" />
+    <Property Name="mobile_Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="mobile_Picture" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="camera" Type="Int32" />
+    <Property Name="ram" Type="Int32" />
+    <Property Name="rom" Type="Int32" />
+    <NavigationProperty Name="brand" Relationship="Self.FK__mobileInf__brand__286302EC" FromRole="mobileInfo" ToRole="brand" />
+    <NavigationProperty Name="mobileType" Relationship="Self.FK__mobileInf__mobil__29572725" FromRole="mobileInfo" ToRole="mobileType" />
+  </EntityType>
+  <EntityType Name="mobileType">
+    <Key>
+      <PropertyRef Name="typeId" />
+    </Key>
+    <Property Name="typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="mobileInfoes" Relationship="Self.FK__mobileInf__mobil__29572725" FromRole="mobileType" ToRole="mobileInfo" />
+  </EntityType>
+  <Association Name="FK__mobileInf__brand__286302EC">
+    <End Role="brand" Type="Self.brand" Multiplicity="1" />
+    <End Role="mobileInfo" Type="Self.mobileInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="brand">
+        <PropertyRef Name="brandId" />
+      </Principal>
+      <Dependent Role="mobileInfo">
+        <PropertyRef Name="brand_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__mobileInf__mobil__29572725">
+    <End Role="mobileType" Type="Self.mobileType" Multiplicity="1" />
+    <End Role="mobileInfo" Type="Self.mobileInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mobileType">
+        <PropertyRef Name="typeId" />
+      </Principal>
+      <Dependent Role="mobileInfo">
+        <PropertyRef Name="mobileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MobileShopDB_Ev07Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="brands" EntityType="Self.brand" />
+    <EntitySet Name="mobileInfoes" EntityType="Self.mobileInfo" />
+    <EntitySet Name="mobileTypes" EntityType="Self.mobileType" />
+    <AssociationSet Name="FK__mobileInf__brand__286302EC" Association="Self.FK__mobileInf__brand__286302EC">
+      <End Role="brand" EntitySet="brands" />
+      <End Role="mobileInfo" EntitySet="mobileInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__mobileInf__mobil__29572725" Association="Self.FK__mobileInf__mobil__29572725">
+      <End Role="mobileType" EntitySet="mobileTypes" />
+      <End Role="mobileInfo" EntitySet="mobileInfoes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
